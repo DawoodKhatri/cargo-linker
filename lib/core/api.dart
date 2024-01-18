@@ -4,7 +4,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class Api {
   final String baseUrl = "https://cargo-linker-backend.cyclic.cloud/api";
-  final Map<String, dynamic> defaultHeaders = {
+    final Map<String, dynamic> defaultHeaders = {
     "Content-Type": "application/json",
   };
   final Dio _dio = Dio();
@@ -12,7 +12,7 @@ class Api {
   Api() {
     _dio.options.baseUrl = baseUrl;
     _dio.options.headers = defaultHeaders;
-    _dio.interceptors.add(PrettyDioLogger(
+        _dio.interceptors.add(PrettyDioLogger(
       requestBody: true,
       requestHeader: true,
       responseBody: true,
@@ -37,16 +37,7 @@ class Api {
         return handler.next(e);
       },
       onError: (e, handler) {
-        ApiResponse apiResponse = ApiResponse.fromResponse(
-          e.response ??
-              Response(
-                requestOptions: RequestOptions(data: {
-                  "success": false,
-                  "message": "Internal server error"
-                }),
-              ),
-        );
-        throw apiResponse.message.toString();
+        return handler.next(e);
       },
     ));
   }
@@ -62,11 +53,40 @@ class ApiResponse {
   ApiResponse({required this.success, this.message, this.data});
 
   factory ApiResponse.fromResponse(Response response) {
-    final res = response.data as Map<String, dynamic>;
-    return ApiResponse(
-      success: res["success"],
-      message: res["message"] ?? (res["success"] ? "Success" : "Error"),
-      data: res["data"],
-    );
+    try {
+      final res = response.data as Map<String, dynamic>;
+      return ApiResponse(
+        success: res["success"],
+        message: res["message"] ?? (res["success"] ? "Success" : "Error"),
+        data: res["data"],
+      );
+    } catch (e) {
+      return ApiResponse(success: false, message: "Internal Server Error");
+    }
+  }
+
+  factory ApiResponse.fromException(DioException exception) {
+    try {
+      return ApiResponse.fromResponse(exception.response ??
+          Response(
+              data: {"success": false, "message": exception.error.toString()},
+              requestOptions: RequestOptions()));
+    } catch (e) {
+      return ApiResponse(success: false, message: "Internal Server Error");
+    }
+  }
+
+  static Future<ApiResponse> handleRequest(Future<Response> request) async {
+    try {
+      Response response = await request;
+      return ApiResponse.fromResponse(response);
+    } on DioException catch (exception) {
+      return ApiResponse.fromResponse(exception.response ??
+          Response(
+              data: {"success": false, "message": exception.error.toString()},
+              requestOptions: RequestOptions()));
+    } catch (exception) {
+      return ApiResponse(success: false, message: "Internal Server Error");
+    }
   }
 }
