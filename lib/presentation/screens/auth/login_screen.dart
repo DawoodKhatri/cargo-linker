@@ -2,6 +2,7 @@ import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/presentation/screens/auth/signup_screen.dart';
 import 'package:cargo_linker/presentation/screens/auth/verification_screen.dart';
+import 'package:cargo_linker/presentation/screens/company_verification/company_submit_verification_screen.dart';
 import 'package:cargo_linker/presentation/screens/home/home_screen.dart';
 import 'package:cargo_linker/presentation/widgets/buttonCircularProgressIndicator.dart';
 import 'package:cargo_linker/presentation/widgets/primaryButton.dart';
@@ -37,7 +38,7 @@ class LoginScreen extends StatelessWidget {
           );
         } else if (state is AuthLoggedInState) {
           Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          Navigator.pushReplacementNamed(context, CompanySubmitVerificationScreen.routeName);
         }
       },
       child: Scaffold(

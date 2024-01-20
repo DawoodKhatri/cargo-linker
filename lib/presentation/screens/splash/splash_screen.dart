@@ -1,6 +1,7 @@
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/presentation/screens/auth/login_screen.dart';
+import 'package:cargo_linker/presentation/screens/company_verification/company_submit_verification_screen.dart';
 import 'package:cargo_linker/presentation/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (state is AuthErrorState || state is AuthLoggedOutState) {
           Navigator.pushReplacementNamed(context, LoginScreen.routeName);
         } else if (state is AuthLoggedInState) {
-          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          Navigator.pushReplacementNamed(context, CompanySubmitVerificationScreen.routeName);
         }
       },
       child: Scaffold(

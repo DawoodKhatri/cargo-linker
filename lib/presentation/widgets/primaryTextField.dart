@@ -5,12 +5,17 @@ class PrimaryTextField extends StatelessWidget {
   final String? labelText;
   final bool obscureText;
   final String? Function(String?)? validator;
-  const PrimaryTextField(
-      {super.key,
-      this.controller,
-      this.labelText,
-      this.obscureText = false,
-      this.validator});
+  final bool readOnly;
+  final VoidCallback? onTap;
+  const PrimaryTextField({
+    super.key,
+    this.controller,
+    this.labelText,
+    this.obscureText = false,
+    this.validator,
+    this.readOnly = false,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +28,8 @@ class PrimaryTextField extends StatelessWidget {
         labelText: labelText,
       ),
       validator: validator,
+      readOnly: readOnly,
+      onTap: onTap,
     );
   }
 }
