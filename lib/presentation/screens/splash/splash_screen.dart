@@ -1,7 +1,10 @@
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
+import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_cubit.dart';
+import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_state.dart';
 import 'package:cargo_linker/presentation/screens/auth/login_screen.dart';
-import 'package:cargo_linker/presentation/screens/company_verification/company_submit_verification_screen.dart';
+import 'package:cargo_linker/presentation/screens/company_verification/company_verification_status_screen.dart';
+import 'package:cargo_linker/presentation/screens/company_verification/company_verification_submit_screen.dart';
 import 'package:cargo_linker/presentation/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,16 +32,30 @@ class _SplashScreenState extends State<SplashScreen> {
         if (state is AuthErrorState || state is AuthLoggedOutState) {
           Navigator.pushReplacementNamed(context, LoginScreen.routeName);
         } else if (state is AuthLoggedInState) {
-          Navigator.pushReplacementNamed(context, CompanySubmitVerificationScreen.routeName);
+          BlocProvider.of<CompanyVerificationCubit>(context)
+              .checkVerification();
         }
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Image.asset(
-              "assets/CargoLinkerTransparent.png",
-              width: 250,
-              height: 250,
+      child: BlocListener<CompanyVerificationCubit, CompanyVerificationState>(
+        listener: (context, state) {
+          if (state is CompanyVerificationPendingState) {
+            Navigator.pushReplacementNamed(
+                context, CompanyVerificationSubmitScreen.routeName);
+          } else if (state is CompanyVerificationOngoingState) {
+            Navigator.pushReplacementNamed(
+                context, CompanyVerificationStatusScreen.routeName);
+          } else if (state is CompanyVerificationCompleteState) {
+            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          }
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: Image.asset(
+                "assets/CargoLinkerTransparent.png",
+                width: 250,
+                height: 250,
+              ),
             ),
           ),
         ),

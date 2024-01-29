@@ -19,11 +19,13 @@ class PrimaryTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return 
+    TextFormField(
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(16),
+      
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         labelText: labelText,
       ),

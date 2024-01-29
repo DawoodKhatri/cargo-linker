@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
+import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:cargo_linker/core/ui.dart';
 import 'package:cargo_linker/core/routes.dart';
@@ -19,7 +20,10 @@ class CargoLinkerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthCubit())],
+      providers: [
+        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => CompanyVerificationCubit())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: AppThemes.light,

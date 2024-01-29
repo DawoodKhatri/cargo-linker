@@ -1,9 +1,9 @@
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
-import 'package:cargo_linker/presentation/widgets/buttonCircularProgressIndicator.dart';
-import 'package:cargo_linker/presentation/widgets/primaryButton.dart';
-import 'package:cargo_linker/presentation/widgets/primaryTextButton.dart';
-import 'package:cargo_linker/presentation/widgets/primaryTextField.dart';
+import 'package:cargo_linker/presentation/widgets/button_circular_progress_indicator.dart';
+import 'package:cargo_linker/presentation/widgets/primary_button.dart';
+import 'package:cargo_linker/presentation/widgets/primary_text_button.dart';
+import 'package:cargo_linker/presentation/widgets/primary_text_field.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
