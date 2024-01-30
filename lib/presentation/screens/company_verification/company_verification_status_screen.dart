@@ -57,7 +57,7 @@ class CompanyVerificationStatusScreen extends StatelessWidget {
                   ],
                   if (state.status == VERIFICATION_STATUS.rejected) ...[
                     Text(
-                      state.message ?? "",
+                      state.remark ?? "",
                       style: const TextStyle(fontSize: 22),
                       textAlign: TextAlign.center,
                     ),

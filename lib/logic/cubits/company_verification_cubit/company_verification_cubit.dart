@@ -22,7 +22,7 @@ class CompanyVerificationCubit extends Cubit<CompanyVerificationState> {
         emit(
           CompanyVerificationOngoingState(
             status: verification["status"],
-            message: verification["message"],
+            remark: verification["remark"],
           ),
         );
       } else {
@@ -54,7 +54,7 @@ class CompanyVerificationCubit extends Cubit<CompanyVerificationState> {
           await _companyRepository.companyVerificationStatus();
 
       emit(CompanyVerificationOngoingState(
-          status: verification["status"], message: verification["message"]));
+          status: verification["status"], remark: verification["remark"]));
     } catch (e) {
       emit(CompanyVerificationErrorState(e.toString()));
     }

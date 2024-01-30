@@ -13,8 +13,8 @@ class CompanyVerificationPendingState extends CompanyVerificationState {}
 
 class CompanyVerificationOngoingState extends CompanyVerificationState {
   final String status;
-  final String? message;
-  CompanyVerificationOngoingState({required this.status, this.message});
+  final String? remark;
+  CompanyVerificationOngoingState({required this.status, this.remark});
 }
 
 class CompanyVerificationCompleteState extends CompanyVerificationState {}
