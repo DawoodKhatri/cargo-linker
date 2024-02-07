@@ -1,3 +1,4 @@
+import 'package:cargo_linker/data/constants/user_roles.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/presentation/widgets/button_circular_progress_indicator.dart';
@@ -44,6 +45,35 @@ class SignupScreen extends StatelessWidget {
                 const Text(
                   "Fill your details to signup for an account",
                   style: TextStyle(color: Colors.grey, fontSize: 18),
+                ),
+                const Spacing(multiply: 6),
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return ToggleButtons(
+                      constraints: BoxConstraints.expand(
+                          width: MediaQuery.of(context).size.width / 2 - 18),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      selectedBorderColor: Theme.of(context).primaryColor,
+                      fillColor: Theme.of(context).cardTheme.color,
+                      color: Theme.of(context).primaryColor,
+                      isSelected: [
+                        BlocProvider.of<AuthCubit>(context).type ==
+                            USER_ROLES.company,
+                        BlocProvider.of<AuthCubit>(context).type ==
+                            USER_ROLES.trader,
+                      ],
+                      children: const [
+                        Text("Company Signup"),
+                        Text("Trader Signup"),
+                      ],
+                      onPressed: (index) {
+                        BlocProvider.of<AuthCubit>(context).switchType(
+                            index == 0
+                                ? USER_ROLES.company
+                                : USER_ROLES.trader);
+                      },
+                    );
+                  },
                 ),
                 const Spacing(multiply: 6),
                 PrimaryTextField(

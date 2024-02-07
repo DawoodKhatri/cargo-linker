@@ -1,3 +1,4 @@
+import 'package:cargo_linker/data/constants/user_roles.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_cubit.dart';
@@ -40,8 +41,14 @@ class LoginScreen extends StatelessWidget {
             ),
           );
         } else if (state is AuthLoggedInState) {
-          BlocProvider.of<CompanyVerificationCubit>(context)
-              .checkVerification();
+          if (BlocProvider.of<AuthCubit>(context).type == USER_ROLES.company) {
+            BlocProvider.of<CompanyVerificationCubit>(context)
+                .checkVerification();
+          }
+          if (BlocProvider.of<AuthCubit>(context).type == USER_ROLES.trader) {
+            Navigator.popUntil(context, (route) => route.isFirst);
+            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          }
         }
       },
       child: BlocListener<CompanyVerificationCubit, CompanyVerificationState>(
@@ -82,6 +89,37 @@ class LoginScreen extends StatelessWidget {
                     const Text(
                       "Fill these details to login to your account",
                       style: TextStyle(color: Colors.grey, fontSize: 18),
+                    ),
+                    const Spacing(multiply: 6),
+                    BlocBuilder<AuthCubit, AuthState>(
+                      builder: (context, state) {
+                        return ToggleButtons(
+                          constraints: BoxConstraints.expand(
+                              width:
+                                  MediaQuery.of(context).size.width / 2 - 18),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8)),
+                          selectedBorderColor: Theme.of(context).primaryColor,
+                          fillColor: Theme.of(context).cardTheme.color,
+                          color: Theme.of(context).primaryColor,
+                          isSelected: [
+                            BlocProvider.of<AuthCubit>(context).type ==
+                                USER_ROLES.company,
+                            BlocProvider.of<AuthCubit>(context).type ==
+                                USER_ROLES.trader,
+                          ],
+                          children: const [
+                            Text("Company Login"),
+                            Text("Trader Login"),
+                          ],
+                          onPressed: (index) {
+                            BlocProvider.of<AuthCubit>(context).switchType(
+                                index == 0
+                                    ? USER_ROLES.company
+                                    : USER_ROLES.trader);
+                          },
+                        );
+                      },
                     ),
                     const Spacing(multiply: 6),
                     PrimaryTextField(

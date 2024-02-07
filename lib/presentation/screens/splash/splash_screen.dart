@@ -1,3 +1,4 @@
+import 'package:cargo_linker/data/constants/user_roles.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_cubit.dart';
@@ -32,8 +33,13 @@ class _SplashScreenState extends State<SplashScreen> {
         if (state is AuthErrorState || state is AuthLoggedOutState) {
           Navigator.pushReplacementNamed(context, LoginScreen.routeName);
         } else if (state is AuthLoggedInState) {
-          BlocProvider.of<CompanyVerificationCubit>(context)
-              .checkVerification();
+          if (BlocProvider.of<AuthCubit>(context).type == USER_ROLES.company) {
+            BlocProvider.of<CompanyVerificationCubit>(context)
+                .checkVerification();
+          }
+          if (BlocProvider.of<AuthCubit>(context).type == USER_ROLES.trader) {
+            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          }
         }
       },
       child: BlocListener<CompanyVerificationCubit, CompanyVerificationState>(
