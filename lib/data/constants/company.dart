@@ -12,3 +12,9 @@ class VERIFICATION_STATUS {
   static String rejected = "Rejected";
   static String verified = "Verified";
 }
+
+Map<String,String> TEST_COMPANY = {
+  "name":"WorldShare",
+  "Registration Number": "123456",
+  "Service Type": "Air",
+};
