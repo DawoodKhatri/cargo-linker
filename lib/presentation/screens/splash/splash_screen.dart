@@ -4,9 +4,10 @@ import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_cubit.dart';
 import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_state.dart';
 import 'package:cargo_linker/presentation/screens/auth/login_screen.dart';
+import 'package:cargo_linker/presentation/screens/home/company_home_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_status_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_submit_screen.dart';
-import 'package:cargo_linker/presentation/screens/home/home_screen.dart';
+import 'package:cargo_linker/presentation/screens/home/trader_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 .checkVerification();
           }
           if (BlocProvider.of<AuthCubit>(context).type == USER_ROLES.trader) {
-            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            Navigator.pushReplacementNamed(context, TraderHomeScreen.routeName);
           }
         }
       },
@@ -51,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Navigator.pushReplacementNamed(
                 context, CompanyVerificationStatusScreen.routeName);
           } else if (state is CompanyVerificationCompleteState) {
-            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            Navigator.pushReplacementNamed(context, CompanyHomeScreen.routeName);
           }
         },
         child: Scaffold(

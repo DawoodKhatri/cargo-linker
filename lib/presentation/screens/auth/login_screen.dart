@@ -7,7 +7,8 @@ import 'package:cargo_linker/presentation/screens/auth/signup_screen.dart';
 import 'package:cargo_linker/presentation/screens/auth/verification_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_status_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_submit_screen.dart';
-import 'package:cargo_linker/presentation/screens/home/home_screen.dart';
+import 'package:cargo_linker/presentation/screens/home/company_home_screen.dart';
+import 'package:cargo_linker/presentation/screens/home/trader_home_screen.dart';
 import 'package:cargo_linker/presentation/widgets/button_circular_progress_indicator.dart';
 import 'package:cargo_linker/presentation/widgets/primary_button.dart';
 import 'package:cargo_linker/presentation/widgets/primary_text_button.dart';
@@ -47,7 +48,7 @@ class LoginScreen extends StatelessWidget {
           }
           if (BlocProvider.of<AuthCubit>(context).type == USER_ROLES.trader) {
             Navigator.popUntil(context, (route) => route.isFirst);
-            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            Navigator.pushReplacementNamed(context, TraderHomeScreen.routeName);
           }
         }
       },
@@ -63,7 +64,8 @@ class LoginScreen extends StatelessWidget {
                 context, CompanyVerificationStatusScreen.routeName);
           } else if (state is CompanyVerificationCompleteState) {
             Navigator.popUntil(context, (route) => route.isFirst);
-            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+            Navigator.pushReplacementNamed(
+                context, CompanyHomeScreen.routeName);
           }
         },
         child: Scaffold(
