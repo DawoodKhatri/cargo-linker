@@ -23,8 +23,24 @@ class CompanyHomeScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("COMPANY HOME"),
-          centerTitle: true,
+          title: const Text("HOME"),
+          centerTitle: false,
+          actions: [
+            IconButton(onPressed: () {
+              BlocProvider.of<AuthCubit>(context).logout();
+            }, icon: BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                if (state is AuthLoadingState) {
+                  return const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  );
+                }
+                return const Icon(Icons.logout);
+              },
+            )),
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -38,20 +54,6 @@ class CompanyHomeScreen extends StatelessWidget {
                   "Welcome to CargoLinker!",
                   style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
                 ),
-                const Spacing(multiply: 4),
-                PrimaryButton(
-                  onPressed: () {
-                    BlocProvider.of<AuthCubit>(context).logout();
-                  },
-                  child: BlocBuilder<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      if (state is AuthLoadingState) {
-                        return const ButtonCircularProgressIndicator();
-                      }
-                      return const Text('Logout');
-                    },
-                  ),
-                )
               ],
             ),
           ),
