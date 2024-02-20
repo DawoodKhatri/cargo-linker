@@ -1,6 +1,7 @@
 import 'package:cargo_linker/data/constants/company.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
+import 'package:cargo_linker/presentation/screens/company_list_container/company_list_container.dart';
 import 'package:cargo_linker/presentation/screens/home/company_home_container_card.dart';
 import 'package:cargo_linker/presentation/screens/splash/splash_screen.dart';
 import 'package:cargo_linker/presentation/widgets/primary_button.dart';
@@ -67,7 +68,10 @@ class CompanyHomeScreen extends StatelessWidget {
                 ),
                 const Spacing(multiply: 2),
                 PrimaryButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, CompanyListContainerScreen.routeName);
+                  },
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
