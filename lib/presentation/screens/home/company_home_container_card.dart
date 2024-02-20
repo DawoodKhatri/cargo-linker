@@ -1,30 +1,18 @@
 import 'package:cargo_linker/core/ui.dart';
+import 'package:cargo_linker/data/repositories/container_repository.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
 
 class CompanyHomeScreenContainerCard extends StatelessWidget {
-  final String containerId;
-  final String type;
-  final String size;
-  final Map<String, dynamic> pickup;
-  final Map<String, dynamic> drop;
-  final String due;
-  final Map<String, dynamic> dimension;
-  final String price;
-  const CompanyHomeScreenContainerCard(
-      {super.key,
-      required this.containerId,
-      required this.type,
-      required this.size,
-      required this.pickup,
-      required this.drop,
-      required this.due,
-      required this.dimension,
-      required this.price});
+  final CompanyContainer container;
+  const CompanyHomeScreenContainerCard({
+    super.key,
+    required this.container,
+  });
 
   @override
   Widget build(BuildContext context) {
-    DateTime dueDate = DateTime.parse(due).toLocal();
+    DateTime dueDate = DateTime.parse(container.due).toLocal();
     return Card(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -37,7 +25,7 @@ class CompanyHomeScreenContainerCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Id: $containerId",
+                  "Id: ${container.containerId}",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                 ),
                 Row(
@@ -48,7 +36,7 @@ class CompanyHomeScreenContainerCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                           color: AppThemes.light.primaryColor),
                       child: Text(
-                        type,
+                        container.type,
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -59,7 +47,7 @@ class CompanyHomeScreenContainerCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                           color: AppThemes.light.primaryColor),
                       child: Text(
-                        "₹$price",
+                        "₹${container.price}",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -68,7 +56,7 @@ class CompanyHomeScreenContainerCard extends StatelessWidget {
               ],
             ),
             Text(
-              "Dimension: ${dimension["length"]} x ${dimension["width"]} x ${dimension["height"]} Feet",
+              "Dimension: ${container.dimension["length"]} x ${container.dimension["width"]} x ${container.dimension["height"]} Feet",
               style: const TextStyle(
                 fontSize: 18,
               ),
@@ -83,7 +71,7 @@ class CompanyHomeScreenContainerCard extends StatelessWidget {
                       const BoxConstraints(minWidth: 48, minHeight: 28),
                   textStyle: const TextStyle(fontSize: 14),
                   onPressed: (value) {},
-                  isSelected: [size == "20", size == "30", size == "40"],
+                  isSelected: [container.size == "20", container.size == "30", container.size == "40"],
                   children: const [
                     Text("20 Ft"),
                     Text("30 Ft"),

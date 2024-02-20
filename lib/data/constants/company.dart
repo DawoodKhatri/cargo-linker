@@ -1,4 +1,6 @@
 List<String> SERVICE_TYPES = ["Rail", "Road", "Ship", "Air"];
+List<String> CONTAINER_TYPES = ["Standard", "Refrigerator"];
+List<String> CONTAINER_SIZE_TYPES = ["20 Feet","30 Feet","40 Feet"];
 List<String> EMPLOYEES_COUNT = [
   "0 - 99",
   "100 - 499",

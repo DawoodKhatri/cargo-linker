@@ -1,9 +1,13 @@
 import 'package:cargo_linker/data/constants/company.dart';
+import 'package:cargo_linker/logic/cubits/company_container_cubit/company_container_cubit.dart';
+import 'package:cargo_linker/logic/cubits/company_container_cubit/company_container_state.dart';
+import 'package:cargo_linker/presentation/widgets/button_circular_progress_indicator.dart';
 import 'package:cargo_linker/presentation/widgets/primary_button.dart';
 import 'package:cargo_linker/presentation/widgets/primary_dropdown_field.dart';
 import 'package:cargo_linker/presentation/widgets/primary_text_field.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CompanyListContainerScreen extends StatelessWidget {
   CompanyListContainerScreen({super.key});
@@ -13,7 +17,7 @@ class CompanyListContainerScreen extends StatelessWidget {
   final heightController = TextEditingController();
   final widthController = TextEditingController();
   final lengthController = TextEditingController();
-  final containerNumberController = TextEditingController();
+  final containerIdController = TextEditingController();
   final dueDateController = TextEditingController();
   final containerSizeController = TextEditingController();
   final containerTypeController = TextEditingController();
@@ -50,7 +54,7 @@ class CompanyListContainerScreen extends StatelessWidget {
                 ),
                 const Spacing(multiply: 6),
                 PrimaryTextField(
-                  controller: containerNumberController,
+                  controller: containerIdController,
                   labelText: 'Container Id',
                   validator: (value) {
                     if (value!.trim().isEmpty) {
@@ -186,11 +190,36 @@ class CompanyListContainerScreen extends StatelessWidget {
                   },
                 ),
                 const Spacing(multiply: 4),
-                PrimaryButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
-                    },
-                    child: const Text('Submit Details')),
+                PrimaryButton(onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    BlocProvider.of<CompanyContainerCubit>(context).submitContainer(
+                        containerId: containerIdController.text,
+                        type: containerTypeController.text,
+                        size: double.parse(containerSizeController.text
+                            .replaceFirst(" Feet", "")),
+                        dimensionLength: double.parse(lengthController.text),
+                        dimensionWidth: double.parse(widthController.text),
+                        dimensionHeigth: double.parse(heightController.text),
+                        price: priceController.text,
+                        pickupLat:
+                            double.parse(pickupController.text.split(",")[0]),
+                        pickupLong:
+                            double.parse(pickupController.text.split(",")[1]),
+                        dropLat:
+                            double.parse(dropController.text.split(",")[0]),
+                        dropLong:
+                            double.parse(dropController.text.split(",")[1]),
+                        due: dueDateController.text);
+                  }
+                }, child:
+                    BlocBuilder<CompanyContainerCubit, CompanyContainerState>(
+                  builder: (context, state) {
+                    if (state is CompanyContainerLoadingState) {
+                      return const ButtonCircularProgressIndicator();
+                    }
+                    return const Text('List Container');
+                  },
+                )),
                 const Spacing(multiply: 4),
               ],
             ),
