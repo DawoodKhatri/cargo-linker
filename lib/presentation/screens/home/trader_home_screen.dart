@@ -50,18 +50,28 @@ class _TraderHomeScreenState extends State<TraderHomeScreen> {
               )),
             ],
           ),
-          body: GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(18.9681556, 72.8313206),
-                zoom: 13,
-              ),
-              markers: {
-                const Marker(
-                  markerId: MarkerId("saboosiddik"),
-                  position: LatLng(18.9681556, 72.8313206),
-                )
-              })),
+          
+          body:
+           Column(
+             children: [
+              // Here add input fields
+
+               Expanded(
+                 child: GoogleMap(
+                    mapType: MapType.normal,
+                    initialCameraPosition: const CameraPosition(
+                      target: LatLng(18.9681556, 72.8313206),
+                      zoom: 13,
+                    ),
+                    markers: {
+                      const Marker(
+                        markerId: MarkerId("saboosiddik"),
+                        position: LatLng(18.9681556, 72.8313206),
+                      )
+                    }),
+               ),
+             ],
+           )),
     );
   }
 }
