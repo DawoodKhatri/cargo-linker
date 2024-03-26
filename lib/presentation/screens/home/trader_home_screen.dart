@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/presentation/screens/splash/splash_screen.dart';
+import 'package:cargo_linker/presentation/widgets/primary_button.dart';
+import 'package:cargo_linker/presentation/widgets/primary_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -19,6 +21,7 @@ class TraderHomeScreen extends StatefulWidget {
 class _TraderHomeScreenState extends State<TraderHomeScreen> {
   final Completer<GoogleMapController> _map_controller =
       Completer<GoogleMapController>();
+  final DropController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,27 @@ class _TraderHomeScreenState extends State<TraderHomeScreen> {
            Column(
              children: [
               // Here add input fields
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: 
+                PrimaryTextField(
+                      controller: DropController,
+                      labelText: 'Drop Location',
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return 'Please enter the drop location';
+                        }
+                        return null;
+                      },
+                    ),),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child:
+                PrimaryButton(
+                      child: Text("Search"),
+                      onPressed: () {
+                        
+                      }),),      
 
                Expanded(
                  child: GoogleMap(
