@@ -45,6 +45,23 @@ class CompanyContainer {
   }
 }
 
+class PickupLocation {
+  final double lat;
+  final double long;
+  final String containerId;
+
+  PickupLocation(
+      {required this.lat, required this.long, required this.containerId});
+
+  factory PickupLocation.fromJson(Map<String, dynamic> json) {
+    return PickupLocation(
+      lat: json["pickup"]["lat"] + 0.0,
+      long: json["pickup"]["long"] + 0.0,
+      containerId: json["_id"],
+    );
+  }
+}
+
 class ContainerRepository {
   final Api _api = Api();
 
@@ -105,5 +122,22 @@ class ContainerRepository {
     if (!apiResponse.success) {
       throw apiResponse.message.toString();
     }
+  }
+
+  Future<List<PickupLocation>> getPickupLocations(String address) async {
+    ApiResponse apiResponse = await ApiResponse.handleRequest(_api.request.get(
+      "/trader/getPickupLocations?address=$address",
+    ));
+
+    if (!apiResponse.success) {
+      throw apiResponse.message.toString();
+    }
+
+    List<PickupLocation> pickupLocations =
+        (apiResponse.data["pickupLocations"] as List)
+            .map((location) => PickupLocation.fromJson(location))
+            .toList();
+
+    return pickupLocations;
   }
 }
