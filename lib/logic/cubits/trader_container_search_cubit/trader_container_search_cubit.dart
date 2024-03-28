@@ -8,13 +8,13 @@ class TraderContainerSearchCubit extends Cubit<TraderContainerSearchState> {
 
   final _containerRepository = ContainerRepository();
 
-  void searchPickupLocations(String address) async {
+  void searchPickupLocations(String pickupAddress, String dropAddress) async {
     try {
       emit(TraderContainerSearchLoadingState());
 
-      List<PickupLocation> pickupLocations =
-          await _containerRepository.getPickupLocations(address);
-      emit(TraderContainerSearchedState(pickupLocations: pickupLocations));
+      List<CompanyContainer> containers = await _containerRepository
+          .getPickupLocations(pickupAddress, dropAddress);
+      emit(TraderContainerSearchedState(containers: containers));
     } catch (e) {
       debugPrint(e.toString());
       emit(TraderContainerSearchErrorState(e.toString()));

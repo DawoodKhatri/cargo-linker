@@ -4,6 +4,7 @@ import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/logic/cubits/trader_container_search_cubit/trader_container_search_cubit.dart';
 import 'package:cargo_linker/logic/cubits/trader_container_search_cubit/trader_container_search_state.dart';
+import 'package:cargo_linker/presentation/screens/home/container_card.dart';
 import 'package:cargo_linker/presentation/screens/splash/splash_screen.dart';
 import 'package:cargo_linker/presentation/widgets/primary_button.dart';
 import 'package:cargo_linker/presentation/widgets/primary_text_field.dart';
@@ -24,6 +25,7 @@ class TraderHomeScreen extends StatefulWidget {
 class _TraderHomeScreenState extends State<TraderHomeScreen> {
   final Completer<GoogleMapController> _map_controller =
       Completer<GoogleMapController>();
+  final pickupLocationController = TextEditingController();
   final dropLocationController = TextEditingController();
 
   @override
@@ -56,64 +58,93 @@ class _TraderHomeScreenState extends State<TraderHomeScreen> {
               )),
             ],
           ),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    PrimaryTextField(
-                      controller: dropLocationController,
-                      labelText: 'Drop Location',
-                      validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return 'Please enter the drop location';
-                        }
-                        return null;
-                      },
-                    ),
-                    const Spacing(
-                      multiply: 2,
-                    ),
-                    PrimaryButton(
-                        child: const Text("Search"),
-                        onPressed: () {
-                          BlocProvider.of<TraderContainerSearchCubit>(context)
-                              .searchPickupLocations(
-                                  dropLocationController.text);
-                        }),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: BlocBuilder<TraderContainerSearchCubit,
-                    TraderContainerSearchState>(
-                  builder: (context, state) {
-                    if (state is TraderContainerSearchLoadingState) {
-                      return const Center(child: CircularProgressIndicator());
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                PrimaryTextField(
+                  controller: pickupLocationController,
+                  labelText: 'Pickup Location',
+                  validator: (value) {
+                    if (value!.trim().isEmpty) {
+                      return 'Please enter the drop location';
                     }
-
-                    if (state is TraderContainerSearchedState) {
-                      return GoogleMap(
-                          mapType: MapType.normal,
-                          initialCameraPosition:  CameraPosition(
-                            target: LatLng(state.pickupLocations[0].lat, state.pickupLocations[0].long),
-                            zoom: 13,
-                          ),
-                          markers: state.pickupLocations
-                              .map((location) => Marker(
-                                    markerId: MarkerId(location.containerId),
-                                    position:
-                                        LatLng(location.lat, location.long),
-                                  ))
-                              .toSet());
-                    }
-
-                    return const Spacing();
+                    return null;
                   },
                 ),
-              ),
-            ],
+                const Spacing(
+                  multiply: 2,
+                ),
+                PrimaryTextField(
+                  controller: dropLocationController,
+                  labelText: 'Drop Location',
+                  validator: (value) {
+                    if (value!.trim().isEmpty) {
+                      return 'Please enter the drop location';
+                    }
+                    return null;
+                  },
+                ),
+                const Spacing(
+                  multiply: 2,
+                ),
+                PrimaryButton(
+                  child: const Text("Search"),
+                  onPressed: () {
+                    BlocProvider.of<TraderContainerSearchCubit>(context)
+                        .searchPickupLocations(pickupLocationController.text,
+                            dropLocationController.text);
+                  },
+                ),
+                const Spacing(
+                  multiply: 2,
+                ),
+                Expanded(
+                  child: BlocBuilder<TraderContainerSearchCubit,
+                      TraderContainerSearchState>(
+                    builder: (context, state) {
+                      if (state is TraderContainerSearchLoadingState) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+
+                      if (state is TraderContainerSearchedState) {
+                        return Column(
+                          children: state.containers.reversed
+                              .map((container) => Column(
+                                    children: [
+                                      ContainerCard(
+                                        container: container,
+                                      ),
+                                      const Spacing(
+                                        multiply: 2,
+                                      ),
+                                    ],
+                                  ))
+                              .toList(),
+                        );
+
+                        // return GoogleMap(
+                        //     mapType: MapType.normal,
+                        //     initialCameraPosition: CameraPosition(
+                        //       target: LatLng(state.pickupLocations[0].lat,
+                        //           state.pickupLocations[0].long),
+                        //       zoom: 13,
+                        //     ),
+                        //     markers: state.pickupLocations
+                        //         .map((location) => Marker(
+                        //               markerId: MarkerId(location.containerId),
+                        //               position:
+                        //                   LatLng(location.lat, location.long),
+                        //             ))
+                        //         .toSet());
+                      }
+
+                      return const SizedBox();
+                    },
+                  ),
+                ),
+              ],
+            ),
           )),
     );
   }

@@ -3,9 +3,9 @@ import 'package:cargo_linker/data/repositories/container_repository.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
 
-class CompanyHomeScreenContainerCard extends StatelessWidget {
+class ContainerCard extends StatelessWidget {
   final CompanyContainer container;
-  const CompanyHomeScreenContainerCard({
+  const ContainerCard({
     super.key,
     required this.container,
   });

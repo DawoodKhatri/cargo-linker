@@ -12,6 +12,6 @@ class TraderContainerSearchErrorState extends TraderContainerSearchState {
 }
 
 class TraderContainerSearchedState extends TraderContainerSearchState {
-  final List<PickupLocation> pickupLocations;
-  TraderContainerSearchedState({required this.pickupLocations});
+  final List<CompanyContainer> containers;
+  TraderContainerSearchedState({required this.containers});
 }

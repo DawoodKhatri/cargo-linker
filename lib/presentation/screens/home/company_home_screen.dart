@@ -4,7 +4,7 @@ import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/logic/cubits/company_container_cubit/company_container_cubit.dart';
 import 'package:cargo_linker/logic/cubits/company_container_cubit/company_container_state.dart';
 import 'package:cargo_linker/presentation/screens/company_list_container/company_list_container.dart';
-import 'package:cargo_linker/presentation/screens/home/company_home_container_card.dart';
+import 'package:cargo_linker/presentation/screens/home/container_card.dart';
 import 'package:cargo_linker/presentation/screens/splash/splash_screen.dart';
 import 'package:cargo_linker/presentation/widgets/primary_button.dart';
 import 'package:cargo_linker/presentation/widgets/primary_table.dart';
@@ -117,7 +117,7 @@ class CompanyHomeScreen extends StatelessWidget {
                           children: state.containers.reversed
                               .map((container) => Column(
                                     children: [
-                                      CompanyHomeScreenContainerCard(
+                                      ContainerCard(
                                         container: container,
                                       ),
                                       const Spacing(

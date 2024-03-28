@@ -124,20 +124,20 @@ class ContainerRepository {
     }
   }
 
-  Future<List<PickupLocation>> getPickupLocations(String address) async {
+  Future<List<CompanyContainer>> getPickupLocations(
+      String pickupAddress, String dropAddress) async {
     ApiResponse apiResponse = await ApiResponse.handleRequest(_api.request.get(
-      "/trader/getPickupLocations?address=$address",
+      "/trader/searchContainers?pickupAddress=$pickupAddress&dropAddress=$dropAddress",
     ));
 
     if (!apiResponse.success) {
       throw apiResponse.message.toString();
     }
 
-    List<PickupLocation> pickupLocations =
-        (apiResponse.data["pickupLocations"] as List)
-            .map((location) => PickupLocation.fromJson(location))
-            .toList();
+    List<CompanyContainer> containers = (apiResponse.data["containers"] as List)
+        .map((container) => CompanyContainer.fromJson(container))
+        .toList();
 
-    return pickupLocations;
+    return containers;
   }
 }
