@@ -2,13 +2,11 @@ import 'package:cargo_linker/core/ui.dart';
 import 'package:cargo_linker/data/repositories/container_repository.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ContainerCard extends StatelessWidget {
   final CompanyContainer container;
-  const ContainerCard({
-    super.key,
-    required this.container,
-  });
+  const ContainerCard({super.key, required this.container});
 
   @override
   Widget build(BuildContext context) {
@@ -26,29 +24,32 @@ class ContainerCard extends StatelessWidget {
               children: [
                 Text(
                   "Id: ${container.containerId}",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.w500),
                 ),
                 Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 4),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           color: AppThemes.light.primaryColor),
                       child: Text(
                         container.type,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
-                    Spacing(),
+                    const Spacing(),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 4),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           color: AppThemes.light.primaryColor),
                       child: Text(
                         "₹${container.price}",
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ],
@@ -71,7 +72,11 @@ class ContainerCard extends StatelessWidget {
                       const BoxConstraints(minWidth: 48, minHeight: 28),
                   textStyle: const TextStyle(fontSize: 14),
                   onPressed: (value) {},
-                  isSelected: [container.size == "20", container.size == "30", container.size == "40"],
+                  isSelected: [
+                    container.size == "20",
+                    container.size == "30",
+                    container.size == "40"
+                  ],
                   children: const [
                     Text("20 Ft"),
                     Text("30 Ft"),
@@ -84,6 +89,38 @@ class ContainerCard extends StatelessWidget {
                       color: AppThemes.light.primaryColor, fontSize: 16),
                 )
               ],
+            ),
+            SizedBox(
+              width: double.maxFinite,
+              height: 175,
+              child: GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(
+                      (container.pickup.lat + container.drop.lat + 0.012) / 2,
+                      (container.pickup.long + container.drop.long + 0.012) /
+                          2),
+                  zoom: 11,
+                ),
+                markers: {
+                  Marker(
+                    icon: BitmapDescriptor.defaultMarkerWithHue(120),
+                    markerId: const MarkerId("pickupMarker"),
+                    position:
+                        LatLng(container.pickup.lat, container.pickup.long),
+                    infoWindow: InfoWindow(
+                        title: container.pickup.address,
+                        snippet: "Pickup Location"),
+                  ),
+                  Marker(
+                    markerId: const MarkerId("dropMarker"),
+                    position: LatLng(container.drop.lat, container.drop.long),
+                    infoWindow: InfoWindow(
+                        title: container.drop.address,
+                        snippet: "Drop Location"),
+                  ),
+                },
+              ),
             )
           ],
         ),

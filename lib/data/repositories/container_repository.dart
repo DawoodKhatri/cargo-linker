@@ -1,11 +1,26 @@
 import 'package:cargo_linker/core/api.dart';
 
+class Location {
+  final String address;
+  final double lat;
+  final double long;
+
+  Location({required this.address, required this.lat, required this.long});
+
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
+        address: json["address"],
+        lat: json["lat"] + 0.0,
+        long: json["long"] + 0.0);
+  }
+}
+
 class CompanyContainer {
   final String containerId;
   final String type;
   final String size;
-  final Map<String, dynamic> pickup;
-  final Map<String, dynamic> drop;
+  final Location pickup;
+  final Location drop;
   final String due;
   final Map<String, dynamic> dimension;
   final String price;
@@ -26,14 +41,8 @@ class CompanyContainer {
       containerId: json["containerId"],
       type: json["type"],
       size: json["size"].toString(),
-      pickup: {
-        "lat": json["pickup"]["lat"].toString(),
-        "long": json["pickup"]["long"].toString(),
-      },
-      drop: {
-        "lat": json["pickup"]["lat"].toString(),
-        "long": json["pickup"]["long"].toString(),
-      },
+      pickup: Location.fromJson(json["pickup"]),
+      drop: Location.fromJson(json["drop"]),
       due: json["due"],
       dimension: {
         "length": json["dimension"]["length"].toString(),
@@ -88,10 +97,8 @@ class ContainerRepository {
     double dimensionWidth,
     double dimensionHeigth,
     String price,
-    double pickupLat,
-    double pickupLong,
-    double dropLat,
-    double dropLong,
+    String pickupAddress,
+    String dropAddress,
     String due,
   ) async {
     Map<String, dynamic> body = {
@@ -105,14 +112,8 @@ class ContainerRepository {
         "height": dimensionHeigth,
       },
       "price": price,
-      "pickup": {
-        "lat": pickupLat,
-        "long": pickupLong,
-      },
-      "drop": {
-        "lat": dropLat,
-        "long": dropLong,
-      }
+      "pickupAddress": pickupAddress,
+      "dropAddress": dropAddress
     };
     ApiResponse apiResponse = await ApiResponse.handleRequest(_api.request.post(
       "/company/containers",

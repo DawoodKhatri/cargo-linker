@@ -135,10 +135,10 @@ class CompanyListContainerScreen extends StatelessWidget {
                 const Spacing(multiply: 3),
                 PrimaryTextField(
                   controller: pickupController,
-                  labelText: 'Pickup Location',
+                  labelText: 'Pickup Address',
                   validator: (value) {
                     if (value!.trim().isEmpty) {
-                      return 'Please enter the Pickup Location';
+                      return 'Please enter the Pickup Address';
                     }
                     return null;
                   },
@@ -146,10 +146,10 @@ class CompanyListContainerScreen extends StatelessWidget {
                 const Spacing(multiply: 3),
                 PrimaryTextField(
                   controller: dropController,
-                  labelText: 'Drop Location',
+                  labelText: 'Drop Address',
                   validator: (value) {
                     if (value!.trim().isEmpty) {
-                      return 'Please enter the Drop Location';
+                      return 'Please enter the Drop Address';
                     }
                     return null;
                   },
@@ -192,24 +192,21 @@ class CompanyListContainerScreen extends StatelessWidget {
                 const Spacing(multiply: 4),
                 PrimaryButton(onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    BlocProvider.of<CompanyContainerCubit>(context).submitContainer(
-                        containerId: containerIdController.text,
-                        type: containerTypeController.text,
-                        size: double.parse(containerSizeController.text
-                            .replaceFirst(" Feet", "")),
-                        dimensionLength: double.parse(lengthController.text),
-                        dimensionWidth: double.parse(widthController.text),
-                        dimensionHeigth: double.parse(heightController.text),
-                        price: priceController.text,
-                        pickupLat:
-                            double.parse(pickupController.text.split(",")[0]),
-                        pickupLong:
-                            double.parse(pickupController.text.split(",")[1]),
-                        dropLat:
-                            double.parse(dropController.text.split(",")[0]),
-                        dropLong:
-                            double.parse(dropController.text.split(",")[1]),
-                        due: dueDateController.text);
+                    BlocProvider.of<CompanyContainerCubit>(context)
+                        .submitContainer(
+                            containerId: containerIdController.text,
+                            type: containerTypeController.text,
+                            size: double.parse(containerSizeController.text
+                                .replaceFirst(" Feet", "")),
+                            dimensionLength:
+                                double.parse(lengthController.text),
+                            dimensionWidth: double.parse(widthController.text),
+                            dimensionHeigth:
+                                double.parse(heightController.text),
+                            price: priceController.text,
+                            pickupAddress: pickupController.text,
+                            dropAddress: dropController.text,
+                            due: dueDateController.text);
                   }
                 }, child:
                     BlocBuilder<CompanyContainerCubit, CompanyContainerState>(

@@ -26,10 +26,8 @@ class CompanyContainerCubit extends Cubit<CompanyContainerState> {
     required double dimensionWidth,
     required double dimensionHeigth,
     required String price,
-    required double pickupLat,
-    required double pickupLong,
-    required double dropLat,
-    required double dropLong,
+    required String pickupAddress,
+    required String dropAddress,
     required String due,
   }) async {
     try {
@@ -42,10 +40,8 @@ class CompanyContainerCubit extends Cubit<CompanyContainerState> {
         dimensionWidth,
         dimensionHeigth,
         price,
-        pickupLat,
-        pickupLong,
-        dropLat,
-        dropLong,
+        pickupAddress,
+        dropAddress,
         due,
       );
       List<CompanyContainer> containers =
