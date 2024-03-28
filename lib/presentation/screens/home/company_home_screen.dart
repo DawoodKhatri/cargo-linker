@@ -1,8 +1,9 @@
-import 'package:cargo_linker/data/constants/company.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/logic/cubits/company_container_cubit/company_container_cubit.dart';
 import 'package:cargo_linker/logic/cubits/company_container_cubit/company_container_state.dart';
+import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_cubit.dart';
+import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_state.dart';
 import 'package:cargo_linker/presentation/screens/company_list_container/company_list_container.dart';
 import 'package:cargo_linker/presentation/screens/home/container_card.dart';
 import 'package:cargo_linker/presentation/screens/splash/splash_screen.dart';
@@ -72,11 +73,22 @@ class CompanyHomeScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                   const Spacing(multiply: 1),
-                  Card(
-                    child: PrimaryTable(
-                      tableData: TEST_COMPANY,
-                    ),
-                  ),
+                  BlocBuilder<CompanyVerificationCubit,
+                      CompanyVerificationState>(builder: (context, state) {
+                    if (state is CompanyVerificationCompleteState) {
+                      return Card(
+                        child: PrimaryTable(
+                          tableData: {
+                            "Name": state.companyDetails.name,
+                            "Registration Number":
+                                state.companyDetails.registrationNumber,
+                            "Service Type": state.companyDetails.serviceType,
+                          },
+                        ),
+                      );
+                    }
+                    return const SizedBox();
+                  }),
                   const Spacing(multiply: 4),
                   const Text(
                     "Listed Containers",
@@ -131,7 +143,6 @@ class CompanyHomeScreen extends StatelessWidget {
                       return const SizedBox();
                     },
                   ),
-                 
                 ],
               ),
             ),

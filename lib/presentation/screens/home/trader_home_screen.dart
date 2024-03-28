@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_cubit.dart';
 import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/logic/cubits/trader_container_search_cubit/trader_container_search_cubit.dart';
@@ -11,7 +9,6 @@ import 'package:cargo_linker/presentation/widgets/primary_text_field.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class TraderHomeScreen extends StatefulWidget {
   const TraderHomeScreen({super.key});
@@ -23,8 +20,6 @@ class TraderHomeScreen extends StatefulWidget {
 }
 
 class _TraderHomeScreenState extends State<TraderHomeScreen> {
-  final Completer<GoogleMapController> _map_controller =
-      Completer<GoogleMapController>();
   final pickupLocationController = TextEditingController();
   final dropLocationController = TextEditingController();
 
@@ -58,49 +53,49 @@ class _TraderHomeScreenState extends State<TraderHomeScreen> {
               )),
             ],
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                PrimaryTextField(
-                  controller: pickupLocationController,
-                  labelText: 'Pickup Location',
-                  validator: (value) {
-                    if (value!.trim().isEmpty) {
-                      return 'Please enter the drop location';
-                    }
-                    return null;
-                  },
-                ),
-                const Spacing(
-                  multiply: 2,
-                ),
-                PrimaryTextField(
-                  controller: dropLocationController,
-                  labelText: 'Drop Location',
-                  validator: (value) {
-                    if (value!.trim().isEmpty) {
-                      return 'Please enter the drop location';
-                    }
-                    return null;
-                  },
-                ),
-                const Spacing(
-                  multiply: 2,
-                ),
-                PrimaryButton(
-                  child: const Text("Search"),
-                  onPressed: () {
-                    BlocProvider.of<TraderContainerSearchCubit>(context)
-                        .searchPickupLocations(pickupLocationController.text,
-                            dropLocationController.text);
-                  },
-                ),
-                const Spacing(
-                  multiply: 2,
-                ),
-                Expanded(
-                  child: BlocBuilder<TraderContainerSearchCubit,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  PrimaryTextField(
+                    controller: pickupLocationController,
+                    labelText: 'Pickup Location',
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
+                        return 'Please enter the drop location';
+                      }
+                      return null;
+                    },
+                  ),
+                  const Spacing(
+                    multiply: 2,
+                  ),
+                  PrimaryTextField(
+                    controller: dropLocationController,
+                    labelText: 'Drop Location',
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
+                        return 'Please enter the drop location';
+                      }
+                      return null;
+                    },
+                  ),
+                  const Spacing(
+                    multiply: 2,
+                  ),
+                  PrimaryButton(
+                    child: const Text("Search"),
+                    onPressed: () {
+                      BlocProvider.of<TraderContainerSearchCubit>(context)
+                          .searchPickupLocations(pickupLocationController.text,
+                              dropLocationController.text);
+                    },
+                  ),
+                  const Spacing(
+                    multiply: 2,
+                  ),
+                  BlocBuilder<TraderContainerSearchCubit,
                       TraderContainerSearchState>(
                     builder: (context, state) {
                       if (state is TraderContainerSearchLoadingState) {
@@ -142,8 +137,8 @@ class _TraderHomeScreenState extends State<TraderHomeScreen> {
                       return const SizedBox();
                     },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )),
     );

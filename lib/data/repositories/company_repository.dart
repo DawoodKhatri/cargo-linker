@@ -1,6 +1,29 @@
 import 'package:cargo_linker/core/api.dart';
 import 'package:dio/dio.dart';
 
+class CompanyDetails {
+  final String name;
+  final String establishmentDate;
+  final String registrationNumber;
+  final String serviceType;
+
+  CompanyDetails({
+    required this.name,
+    required this.establishmentDate,
+    required this.registrationNumber,
+    required this.serviceType,
+  });
+
+  factory CompanyDetails.fromJson(Map<String, dynamic> json) {
+    return CompanyDetails(
+      name: json["name"],
+      establishmentDate: json["establishmentDate"],
+      registrationNumber: json["registrationNumber"],
+      serviceType: json["serviceType"],
+    );
+  }
+}
+
 class CompanyRepository {
   final Api _api = Api();
 

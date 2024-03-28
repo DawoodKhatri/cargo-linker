@@ -1,3 +1,5 @@
+import 'package:cargo_linker/data/repositories/company_repository.dart';
+
 abstract class CompanyVerificationState {}
 
 class CompanyVerificationInitialState extends CompanyVerificationState {}
@@ -17,4 +19,7 @@ class CompanyVerificationOngoingState extends CompanyVerificationState {
   CompanyVerificationOngoingState({required this.status, this.remark});
 }
 
-class CompanyVerificationCompleteState extends CompanyVerificationState {}
+class CompanyVerificationCompleteState extends CompanyVerificationState {
+  final CompanyDetails companyDetails;
+  CompanyVerificationCompleteState({required this.companyDetails});
+}

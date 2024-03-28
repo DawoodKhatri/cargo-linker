@@ -26,7 +26,11 @@ class CompanyVerificationCubit extends Cubit<CompanyVerificationState> {
           ),
         );
       } else {
-        emit(CompanyVerificationCompleteState());
+        emit(
+          CompanyVerificationCompleteState(
+            companyDetails: CompanyDetails.fromJson(verification["details"]),
+          ),
+        );
       }
     } catch (e) {
       emit(CompanyVerificationErrorState(e.toString()));
