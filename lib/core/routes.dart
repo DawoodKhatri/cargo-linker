@@ -1,6 +1,7 @@
 import 'package:cargo_linker/presentation/screens/auth/login_screen.dart';
 import 'package:cargo_linker/presentation/screens/auth/signup_screen.dart';
 import 'package:cargo_linker/presentation/screens/auth/verification_screen.dart';
+import 'package:cargo_linker/presentation/screens/booking/trader_booking.dart';
 import 'package:cargo_linker/presentation/screens/company_list_container/company_list_container.dart';
 import 'package:cargo_linker/presentation/screens/home/company_home_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_status_screen.dart';
@@ -43,6 +44,10 @@ class Routes {
       case TraderHomeScreen.routeName:
         return MaterialPageRoute(
             builder: (context) => const TraderHomeScreen());
+
+      case TraderBookingScreen.routeName:
+        return MaterialPageRoute(
+            builder: (context) => const TraderBookingScreen());
 
       default:
         return null;

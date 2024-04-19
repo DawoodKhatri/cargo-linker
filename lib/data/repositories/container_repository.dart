@@ -21,9 +21,12 @@ class CompanyContainer {
   final String size;
   final Location pickup;
   final Location drop;
+  final String encodedPolylinePoints;
   final String due;
   final Map<String, dynamic> dimension;
   final String price;
+  final String companyName;
+  final String serviceType;
 
   CompanyContainer({
     required this.containerId,
@@ -31,9 +34,12 @@ class CompanyContainer {
     required this.size,
     required this.pickup,
     required this.drop,
+    required this.encodedPolylinePoints,
     required this.due,
     required this.dimension,
     required this.price,
+    required this.companyName,
+    required this.serviceType,
   });
 
   factory CompanyContainer.fromJson(Map<String, dynamic> json) {
@@ -43,6 +49,7 @@ class CompanyContainer {
       size: json["size"].toString(),
       pickup: Location.fromJson(json["pickup"]),
       drop: Location.fromJson(json["drop"]),
+      encodedPolylinePoints: json["encodedPolylinePoints"]??"",
       due: json["due"],
       dimension: {
         "length": json["dimension"]["length"].toString(),
@@ -50,6 +57,8 @@ class CompanyContainer {
         "height": json["dimension"]["height"].toString(),
       },
       price: json["price"].toString(),
+      companyName: json["companyName"],
+      serviceType: json["serviceType"],
     );
   }
 }
@@ -125,7 +134,7 @@ class ContainerRepository {
     }
   }
 
-  Future<List<CompanyContainer>> getPickupLocations(
+  Future<List<CompanyContainer>> searchContainers(
       String pickupAddress, String dropAddress) async {
     ApiResponse apiResponse = await ApiResponse.handleRequest(_api.request.get(
       "/trader/searchContainers?pickupAddress=$pickupAddress&dropAddress=$dropAddress",

@@ -1,6 +1,15 @@
+import 'package:flutter/material.dart';
+
 List<String> SERVICE_TYPES = ["Rail", "Road", "Ship", "Air"];
+Map<String, IconData> SERVICE_TYPES_ICON = {
+  SERVICE_TYPES[0]: Icons.directions_railway,
+  SERVICE_TYPES[1]: Icons.directions_bus,
+  SERVICE_TYPES[2]: Icons.directions_boat,
+  SERVICE_TYPES[3]: Icons.airplanemode_active,
+};
+
 List<String> CONTAINER_TYPES = ["Standard", "Refrigerator"];
-List<String> CONTAINER_SIZE_TYPES = ["20 Feet","30 Feet","40 Feet"];
+List<String> CONTAINER_SIZE_TYPES = ["20 Feet", "30 Feet", "40 Feet"];
 List<String> EMPLOYEES_COUNT = [
   "0 - 99",
   "100 - 499",

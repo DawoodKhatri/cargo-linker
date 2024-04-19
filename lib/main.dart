@@ -26,7 +26,7 @@ class CargoLinkerApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthCubit()),
         BlocProvider(create: (context) => CompanyVerificationCubit()),
         BlocProvider(create: (context) => CompanyContainerCubit()),
-        BlocProvider(create: (context) => TraderContainerSearchCubit())
+        BlocProvider(create: (context) => TraderContainerBookingCubit())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
