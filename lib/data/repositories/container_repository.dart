@@ -25,8 +25,8 @@ class CompanyContainer {
   final String due;
   final Map<String, dynamic> dimension;
   final String price;
-  final String companyName;
-  final String serviceType;
+  final String? companyName;
+  final String? serviceType;
 
   CompanyContainer({
     required this.containerId,
@@ -38,8 +38,8 @@ class CompanyContainer {
     required this.due,
     required this.dimension,
     required this.price,
-    required this.companyName,
-    required this.serviceType,
+    this.companyName,
+    this.serviceType,
   });
 
   factory CompanyContainer.fromJson(Map<String, dynamic> json) {
@@ -49,7 +49,7 @@ class CompanyContainer {
       size: json["size"].toString(),
       pickup: Location.fromJson(json["pickup"]),
       drop: Location.fromJson(json["drop"]),
-      encodedPolylinePoints: json["encodedPolylinePoints"]??"",
+      encodedPolylinePoints: json["encodedPolylinePoints"] ?? "",
       due: json["due"],
       dimension: {
         "length": json["dimension"]["length"].toString(),

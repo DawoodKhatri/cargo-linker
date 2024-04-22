@@ -23,7 +23,9 @@ class ContainerCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(container.companyName),
+            container.companyName != null
+                ? Text(container.companyName ?? "")
+                : const SizedBox(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,11 +104,12 @@ class ContainerCard extends StatelessWidget {
               child: GoogleMap(
                 mapType: MapType.normal,
                 initialCameraPosition: CameraPosition(
-                  target: LatLng(
-                      (container.pickup.lat + container.drop.lat + 0.012) / 2,
-                      (container.pickup.long + container.drop.long + 0.012) /
-                          2),
-                  zoom: 11,
+                  target: LatLng(container.pickup.lat, container.pickup.long),
+                  // target: LatLng(
+                  //     (container.pickup.lat + container.drop.lat + 0.012) / 2,
+                  //     (container.pickup.long + container.drop.long + 0.012) /
+                  //         2),
+                  zoom: 12,
                 ),
                 markers: {
                   Marker(

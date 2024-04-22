@@ -43,7 +43,7 @@ class TraderBookingScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             padding: EdgeInsets.all(6),
@@ -53,7 +53,7 @@ class TraderBookingScreen extends StatelessWidget {
                             ),
                             child: Icon(
                               SERVICE_TYPES_ICON[state.container.serviceType],
-                              size: 18,
+                              size: 22,
                               color: Colors.white,
                             ),
                           ),
@@ -61,19 +61,22 @@ class TraderBookingScreen extends StatelessWidget {
                             multiply: 1,
                           ),
                           Text(
-                            state.container.companyName,
-                            style: TextStyle(fontSize: 20),
+                            state.container.companyName ?? "",
+                            style: TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 2),
                           ),
                         ],
                       ),
                       Spacing(
-                        multiply: 2,
+                        multiply: 3,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Id: ${state.container.containerId}",
@@ -104,7 +107,7 @@ class TraderBookingScreen extends StatelessWidget {
                         ],
                       ),
                       Spacing(
-                        multiply: 2,
+                        multiply: 3,
                       ),
                       Text(
                         "Container Size: ${state.container.size} Feet",
@@ -125,7 +128,7 @@ class TraderBookingScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 18),
                       ),
                       Spacing(
-                        multiply: 2,
+                        multiply: 3,
                       ),
                       Text(
                         "Location",
@@ -133,23 +136,25 @@ class TraderBookingScreen extends StatelessWidget {
                             fontSize: 24, fontWeight: FontWeight.w500),
                       ),
                       Spacing(
-                        multiply: 2,
+                        multiply: 1,
                       ),
                       SizedBox(
                         width: double.maxFinite,
-                        height: 300,
+                        height: 275,
                         child: GoogleMap(
                           mapType: MapType.normal,
                           initialCameraPosition: CameraPosition(
-                            target: LatLng(
-                                (state.container.pickup.lat +
-                                        state.container.drop.lat +
-                                        0.008) /
-                                    2,
-                                (state.container.pickup.long +
-                                        state.container.drop.long +
-                                        0.012) /
-                                    2),
+                            target: LatLng(state.container.pickup.lat,
+                                state.container.pickup.long),
+                            // target: LatLng(
+                            //     (state.container.pickup.lat +
+                            //             state.container.drop.lat +
+                            //             0.008) /
+                            //         2,
+                            //     (state.container.pickup.long +
+                            //             state.container.drop.long +
+                            //             0.012) /
+                            //         2),
                             zoom: 13,
                           ),
                           markers: {
