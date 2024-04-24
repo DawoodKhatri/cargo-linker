@@ -1,22 +1,17 @@
 import 'package:cargo_linker/data/repositories/container_repository.dart';
 
-abstract class TraderContainerBookingState {}
+abstract class TraderContainerSearchState {}
 
-class TraderContainerBookingInitialState extends TraderContainerBookingState {}
+class TraderContainerSearchInitialState extends TraderContainerSearchState {}
 
-class TraderContainerBookingLoadingState extends TraderContainerBookingState {}
+class TraderContainerSearchLoadingState extends TraderContainerSearchState {}
 
-class TraderContainerBookingErrorState extends TraderContainerBookingState {
+class TraderContainerSearchErrorState extends TraderContainerSearchState {
   final String message;
-  TraderContainerBookingErrorState(this.message);
+  TraderContainerSearchErrorState(this.message);
 }
 
-class TraderContainerBookingSearchedState extends TraderContainerBookingState {
+class TraderContainerSearchedState extends TraderContainerSearchState {
   final List<CompanyContainer> containers;
-  TraderContainerBookingSearchedState({required this.containers});
-}
-
-class TraderContainerBookingStartedState extends TraderContainerBookingState {
-  final CompanyContainer container;
-  TraderContainerBookingStartedState({required this.container});
+  TraderContainerSearchedState({required this.containers});
 }

@@ -3,14 +3,14 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class Api {
-  final String baseUrl = "https://cargo-linker-backend.cyclic.cloud/api";
+  final String baseUrl = "https://cargo-linker-server.dawood.codes/api";
   final Map<String, dynamic> defaultHeaders = {
     "Content-Type": "application/json",
   };
   final Dio _dio = Dio();
 
   Api() {
-    _dio.options.sendTimeout =const Duration(seconds: 10);
+    _dio.options.sendTimeout = const Duration(seconds: 10);
     _dio.options.baseUrl = baseUrl;
     _dio.options.headers = defaultHeaders;
     _dio.interceptors.add(PrettyDioLogger(

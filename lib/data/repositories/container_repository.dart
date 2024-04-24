@@ -16,6 +16,7 @@ class Location {
 }
 
 class CompanyContainer {
+  final String id;
   final String containerId;
   final String type;
   final String size;
@@ -29,6 +30,7 @@ class CompanyContainer {
   final String? serviceType;
 
   CompanyContainer({
+    required this.id,
     required this.containerId,
     required this.type,
     required this.size,
@@ -44,6 +46,7 @@ class CompanyContainer {
 
   factory CompanyContainer.fromJson(Map<String, dynamic> json) {
     return CompanyContainer(
+      id: json["_id"],
       containerId: json["containerId"],
       type: json["type"],
       size: json["size"].toString(),
