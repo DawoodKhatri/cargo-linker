@@ -134,9 +134,15 @@ class ContainerCard extends StatelessWidget {
                     polylineId: const PolylineId("polyline"),
                     color: AppThemes.light.primaryColor,
                     width: 3,
-                    points: polylinePoints
-                        .map((point) => LatLng(point.latitude, point.longitude))
-                        .toList(),
+                    points: polylinePoints.isNotEmpty
+                        ? polylinePoints
+                            .map((point) =>
+                                LatLng(point.latitude, point.longitude))
+                            .toList()
+                        : [
+                            LatLng(container.pickup.lat, container.pickup.long),
+                            LatLng(container.drop.lat, container.drop.long),
+                          ],
                   )
                 },
               ),
