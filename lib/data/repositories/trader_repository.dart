@@ -14,8 +14,10 @@ class TraderRepository {
     }
   }
 
-  Future<void> signup(String email, String password, String otp) async {
+  Future<void> signup(
+      String name, String email, String password, String otp) async {
     Map<String, dynamic> body = {
+      "name": name,
       "email": email,
       "password": password,
       "otp": otp

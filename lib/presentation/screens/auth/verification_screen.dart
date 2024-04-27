@@ -88,6 +88,7 @@ class VerificationScreen extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       BlocProvider.of<AuthCubit>(context).signup(
+                          BlocProvider.of<AuthCubit>(context).name,
                           BlocProvider.of<AuthCubit>(context).email,
                           BlocProvider.of<AuthCubit>(context).password,
                           otpController.text.trim());

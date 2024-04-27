@@ -14,6 +14,7 @@ class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final repasswordController = TextEditingController();
@@ -76,6 +77,30 @@ class SignupScreen extends StatelessWidget {
                   },
                 ),
                 const Spacing(multiply: 6),
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    if (BlocProvider.of<AuthCubit>(context).type ==
+                        USER_ROLES.trader) {
+                      return Column(
+                        children: [
+                          PrimaryTextField(
+                            controller: nameController,
+                            labelText: "Name",
+                            validator: (value) {
+                              if (value!.trim().isEmpty) {
+                                return 'Please enter your name';
+                              }
+                              return null;
+                            },
+                          ),
+                          const Spacing(multiply: 3),
+                        ],
+                      );
+                    }
+
+                    return const SizedBox();
+                  },
+                ),
                 PrimaryTextField(
                   controller: emailController,
                   labelText: "Email",
@@ -119,6 +144,7 @@ class SignupScreen extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       BlocProvider.of<AuthCubit>(context).emailVerify(
+                          nameController.text.trim(),
                           emailController.text.trim(),
                           passwordController.text.trim());
                     }

@@ -13,10 +13,12 @@ class AuthCubit extends Cubit<AuthState> {
   final _traderRepository = TraderRepository();
 
   String _type = USER_ROLES.company;
+  late String? _name;
   late String _email;
   late String _password;
 
   String get type => _type;
+  String? get name => _name;
   String get email => _email;
   String get password => _password;
 
@@ -35,14 +37,15 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoggedOutState());
   }
 
-  void emailVerify(String email, String password) async {
+  void emailVerify(String? name, String email, String password) async {
     try {
+      _name = name;
       _email = email;
       _password = password;
       emit(AuthLoadingState());
       if (type == USER_ROLES.company) {
         await _companyRepository.companyEmailVerify(email);
-      } else  {
+      } else {
         await _traderRepository.emailVerify(email);
       }
       emit(AuthOTPVerificationState());
@@ -65,13 +68,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void signup(String email, String password, String otp) async {
+  void signup(String? name, String email, String password, String otp) async {
     try {
       emit(AuthLoadingState());
       if (type == USER_ROLES.company) {
         await _companyRepository.companySignup(email, password, otp);
       } else {
-        await _traderRepository.signup(email, password, otp);
+        if (name == null) throw Exception("Name is required");
+        await _traderRepository.signup(name, email, password, otp);
       }
       emit(AuthLoggedInState());
     } catch (ex) {

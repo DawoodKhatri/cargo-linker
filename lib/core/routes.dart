@@ -1,14 +1,13 @@
 import 'package:cargo_linker/presentation/screens/auth/login_screen.dart';
 import 'package:cargo_linker/presentation/screens/auth/signup_screen.dart';
 import 'package:cargo_linker/presentation/screens/auth/verification_screen.dart';
-import 'package:cargo_linker/presentation/screens/booking/trader_booking.dart';
-import 'package:cargo_linker/presentation/screens/booking/trader_booking_status.dart';
+import 'package:cargo_linker/presentation/screens/trader_booking/trader_booking_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_list_container/company_list_container.dart';
-import 'package:cargo_linker/presentation/screens/home/company_home_screen.dart';
+import 'package:cargo_linker/presentation/screens/home/company/company_home_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_status_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_submit_screen.dart';
 import 'package:cargo_linker/presentation/screens/splash/splash_screen.dart';
-import 'package:cargo_linker/presentation/screens/home/trader_home_screen.dart';
+import 'package:cargo_linker/presentation/screens/home/trader/trader_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -50,9 +49,6 @@ class Routes {
         return MaterialPageRoute(
             builder: (context) => const TraderBookingScreen());
 
-      case TraderBookingStatusScreen.routeName:
-        return MaterialPageRoute(
-            builder: (context) => const TraderBookingStatusScreen());
       default:
         return null;
     }

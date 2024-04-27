@@ -14,14 +14,14 @@ class PrimaryTable extends StatelessWidget {
               padding: EdgeInsets.all(8),
               child: Text(
                 entry.key,
-                style: TextStyle(color: Colors.black, fontSize: 16),
+                style: TextStyle( fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(8),
               child: Text(
                 entry.value,
-                style: TextStyle(color: Colors.black, fontSize: 16),
+                style: TextStyle( fontSize: 20),
               ),
             )
           ],

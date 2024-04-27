@@ -3,23 +3,32 @@ import 'package:dio/dio.dart';
 
 class CompanyDetails {
   final String name;
+  final String email;
   final String establishmentDate;
   final String registrationNumber;
   final String serviceType;
+  final int listedContainers;
+  final int totalBookings;
 
   CompanyDetails({
     required this.name,
+    required this.email,
     required this.establishmentDate,
     required this.registrationNumber,
     required this.serviceType,
+    required this.listedContainers,
+    required this.totalBookings,
   });
 
   factory CompanyDetails.fromJson(Map<String, dynamic> json) {
     return CompanyDetails(
       name: json["name"],
+      email: json["email"],
       establishmentDate: json["establishmentDate"],
       registrationNumber: json["registrationNumber"],
       serviceType: json["serviceType"],
+      listedContainers: json["listedContainers"],
+      totalBookings: json["totalBookings"],
     );
   }
 }

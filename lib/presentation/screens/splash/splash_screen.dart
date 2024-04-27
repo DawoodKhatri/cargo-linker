@@ -4,10 +4,10 @@ import 'package:cargo_linker/logic/cubits/auth_cubit/auth_state.dart';
 import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_cubit.dart';
 import 'package:cargo_linker/logic/cubits/company_verification_cubit/company_verification_state.dart';
 import 'package:cargo_linker/presentation/screens/auth/login_screen.dart';
-import 'package:cargo_linker/presentation/screens/home/company_home_screen.dart';
+import 'package:cargo_linker/presentation/screens/home/company/company_home_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_status_screen.dart';
 import 'package:cargo_linker/presentation/screens/company_verification/company_verification_submit_screen.dart';
-import 'package:cargo_linker/presentation/screens/home/trader_home_screen.dart';
+import 'package:cargo_linker/presentation/screens/home/trader/trader_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
