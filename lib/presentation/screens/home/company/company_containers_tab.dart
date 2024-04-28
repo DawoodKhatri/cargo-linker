@@ -4,6 +4,7 @@ import 'package:cargo_linker/logic/cubits/company_container_cubit/company_contai
 import 'package:cargo_linker/logic/cubits/company_cubit/company_cubit.dart';
 import 'package:cargo_linker/logic/cubits/company_cubit/company_state.dart';
 import 'package:cargo_linker/presentation/screens/home/container_card.dart';
+import 'package:cargo_linker/presentation/widgets/empty.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,18 +53,31 @@ class CompanyContainersTab extends StatelessWidget {
               const Spacing(
                 multiply: 3,
               ),
-              ...containers.reversed
-                  .map((container) => Column(
-                        children: [
-                          ContainerCard(
-                            container: container,
-                          ),
-                          const Spacing(
-                            multiply: 2,
-                          ),
-                        ],
-                      ))
-                  .toList()
+              Builder(
+                builder: (context) {
+                  if (containers.isEmpty) {
+                    return Empty(
+                      assetPath: "assets/no_containers.svg",
+                      text: "No Containers Found",
+                      heightAdjustment: -MediaQuery.of(context).size.height / 3,
+                    );
+                  }
+                  return Column(
+                    children: containers.reversed
+                        .map((container) => Column(
+                              children: [
+                                ContainerCard(
+                                  container: container,
+                                ),
+                                const Spacing(
+                                  multiply: 2,
+                                ),
+                              ],
+                            ))
+                        .toList(),
+                  );
+                },
+              ),
             ],
           );
         },

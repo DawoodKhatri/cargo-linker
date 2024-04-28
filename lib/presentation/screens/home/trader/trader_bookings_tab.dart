@@ -2,6 +2,7 @@ import 'package:cargo_linker/data/repositories/booking_repository.dart';
 import 'package:cargo_linker/logic/cubits/trader_cubit/trader_cubit.dart';
 import 'package:cargo_linker/logic/cubits/trader_cubit/trader_state.dart';
 import 'package:cargo_linker/presentation/screens/home/booking_card.dart';
+import 'package:cargo_linker/presentation/widgets/empty.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,20 +36,34 @@ class TraderBookingsTab extends StatelessWidget {
           const Spacing(
             multiply: 3,
           ),
-          ...bookings
-              .map(
-                (booking) => Column(
-                  children: [
-                    BookingCard(
-                      booking: booking,
-                    ),
-                    const Spacing(
-                      multiply: 3,
+          Builder(
+            builder: (context) {
+              if (bookings.isEmpty) {
+                return Empty(
+                  assetPath: "assets/no_bookings.svg",
+                  text: "No Bookings Found",
+                  heightAdjustment: -MediaQuery.of(context).size.height / 3,
+                );
+              }
+
+              return Column(
+                children: bookings
+                    .map(
+                      (booking) => Column(
+                        children: [
+                          BookingCard(
+                            booking: booking,
+                          ),
+                          const Spacing(
+                            multiply: 3,
+                          )
+                        ],
+                      ),
                     )
-                  ],
-                ),
-              )
-              .toList()
+                    .toList(),
+              );
+            },
+          ),
         ],
       );
     });
