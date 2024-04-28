@@ -64,21 +64,21 @@ class BookingDetailsScreen extends StatelessWidget {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: !booking.paymentDisbursed
+                              color: booking.paymentDisbursed
                                   ? Colors.green.shade600
                                   : Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Icon(
-                              !booking.paymentDisbursed
+                              booking.paymentDisbursed
                                   ? Icons.check
                                   : Icons.close,
                               color: Colors.white,
                             ),
                           ),
-                          Spacing(),
+                          const Spacing(),
                           Text(
-                            !booking.paymentDisbursed
+                            booking.paymentDisbursed
                                 ? "Payment Transferred"
                                 : "Payment transfer pending",
                             style: const TextStyle(
