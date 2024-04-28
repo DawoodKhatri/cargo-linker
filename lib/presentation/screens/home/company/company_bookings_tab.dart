@@ -30,12 +30,12 @@ class CompanyBookingsTab extends StatelessWidget {
             const Text(
               "Bookings",
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 34,
                 fontWeight: FontWeight.w600,
               ),
             ),
           const  Spacing(
-              multiply: 2,
+              multiply: 3,
             ),
             ...bookings
                 .map(

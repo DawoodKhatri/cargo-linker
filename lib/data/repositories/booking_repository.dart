@@ -17,9 +17,11 @@ class Booking {
   final CompanyContainer container;
   final String? companyId;
   final String? companyName;
+  final String? companyEmail;
   final String? companyServiceType;
   final String? traderId;
   final String? traderName;
+  final String? traderEmail;
   final String orderId;
   final double amount;
   final bool paymentDisbursed;
@@ -29,9 +31,11 @@ class Booking {
     required this.container,
     this.companyId,
     this.companyName,
+    this.companyEmail,
     this.companyServiceType,
     this.traderId,
     this.traderName,
+    this.traderEmail,
     required this.orderId,
     required this.amount,
     required this.paymentDisbursed,
@@ -43,9 +47,11 @@ class Booking {
       container: CompanyContainer.fromJson(json["container"]),
       companyId: json["company"]?["_id"],
       companyName: json["company"]?["name"],
+      companyEmail: json["company"]?["email"],
       companyServiceType: json["company"]?["serviceType"],
       traderId: json["trader"]?["_id"],
       traderName: json["trader"]?["name"],
+      traderEmail: json["trader"]?["email"],
       orderId: json["orderId"],
       amount: double.parse(json["amount"].toString()),
       paymentDisbursed: json["paymentDisbursed"] ?? false,

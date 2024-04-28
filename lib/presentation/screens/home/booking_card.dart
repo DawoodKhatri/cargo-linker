@@ -1,4 +1,5 @@
 import 'package:cargo_linker/data/repositories/booking_repository.dart';
+import 'package:cargo_linker/presentation/screens/booking/booking_details.dart';
 import 'package:cargo_linker/presentation/screens/home/container_card.dart';
 import 'package:cargo_linker/presentation/widgets/spacing.dart';
 import 'package:flutter/material.dart';
@@ -17,24 +18,31 @@ class BookingCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    booking.companyName ?? booking.traderName ?? "",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_right_rounded,
-                    size: 32,
-                    color: Theme.of(context).primaryColor,
-                  )
-                ],
-              ),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      BookingDetailsScreen.routeName,
+                      arguments: booking,
+                    );
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        booking.companyName ?? booking.traderName ?? "",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_right_rounded,
+                        size: 32,
+                        color: Theme.of(context).primaryColor,
+                      )
+                    ],
+                  )),
               Text(
                 booking.orderId,
                 style: const TextStyle(

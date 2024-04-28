@@ -35,19 +35,15 @@ class TraderHomeScreen extends StatelessWidget {
         },
         child: BlocBuilder<TraderCubit, TraderState>(
           builder: (context, state) {
-            final String title = state is TraderSearchScreenState
-                ? "Search Containers"
-                : "My Bookings";
-
             int pageIndex = state is TraderSearchScreenState ? 1 : 0;
 
-            final Widget screenWidget = state is TraderSearchScreenState
-                ? TraderSearchTab()
-                : TraderBookingsTab(bookings: state.bookings);
+            final Widget screenWidget = state is TraderBookingsScreenState
+                ? TraderBookingsTab(bookings: state.bookings)
+                : TraderSearchTab();
 
             return Scaffold(
               appBar: AppBar(
-                title: Text(title),
+                title: const Text("HOME"),
                 centerTitle: false,
                 actions: [
                   IconButton(onPressed: () {

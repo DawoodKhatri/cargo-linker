@@ -13,9 +13,9 @@ class TraderCubit extends Cubit<TraderState> {
 
   void switchToBookings() async {
     try {
-      emit(TraderLoadingState());
+      emit(TraderBookingsScreenState(bookings: [], isLoading: true));
       List<Booking> bookings = await _bookingRepository.getTraderBookings();
-      emit(TraderBookingsScreenState(bookings));
+      emit(TraderBookingsScreenState(bookings:bookings));
     } catch (e) {
       emit(TraderErrorState(e.toString()));
     }

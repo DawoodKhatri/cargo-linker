@@ -25,6 +25,7 @@ class CompanyContainersTab extends StatelessWidget {
         }
         if (state is CompanyContainerListedState) {
           Navigator.popUntil(context, (route) => route.isFirst);
+          BlocProvider.of<CompanyCubit>(context).switchToContainers();
         }
       },
       child: BlocBuilder<CompanyCubit, CompanyState>(
@@ -44,12 +45,12 @@ class CompanyContainersTab extends StatelessWidget {
               const Text(
                 "Listed Containers",
                 style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 34,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const Spacing(
-                multiply: 2,
+                multiply: 3,
               ),
               ...containers.reversed
                   .map((container) => Column(

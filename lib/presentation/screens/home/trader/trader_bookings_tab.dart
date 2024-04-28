@@ -13,7 +13,7 @@ class TraderBookingsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TraderCubit, TraderState>(builder: (context, state) {
-      if (state is TraderLoadingState) {
+      if (state is TraderBookingsScreenState && state.isLoading) {
         return SizedBox(
           height: MediaQuery.of(context).size.height - 200,
           child: const Center(
@@ -23,20 +23,33 @@ class TraderBookingsTab extends StatelessWidget {
       }
 
       return Column(
-        children: bookings
-            .map(
-              (booking) => Column(
-                children: [
-                  BookingCard(
-                    booking: booking,
-                  ),
-                  const Spacing(
-                    multiply: 3,
-                  )
-                ],
-              ),
-            )
-            .toList(),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "My Bookings",
+            style: TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const Spacing(
+            multiply: 3,
+          ),
+          ...bookings
+              .map(
+                (booking) => Column(
+                  children: [
+                    BookingCard(
+                      booking: booking,
+                    ),
+                    const Spacing(
+                      multiply: 3,
+                    )
+                  ],
+                ),
+              )
+              .toList()
+        ],
       );
     });
   }

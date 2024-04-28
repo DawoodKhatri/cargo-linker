@@ -3,7 +3,7 @@ import 'package:cargo_linker/logic/cubits/trader_container_booking_cubit/trader_
 import 'package:cargo_linker/logic/cubits/trader_container_search_cubit/trader_container_search_cubit.dart';
 import 'package:cargo_linker/logic/cubits/trader_container_search_cubit/trader_container_search_state.dart';
 import 'package:cargo_linker/logic/cubits/trader_cubit/trader_cubit.dart';
-import 'package:cargo_linker/presentation/screens/trader_booking/trader_booking_screen.dart';
+import 'package:cargo_linker/presentation/screens/booking/trader_booking_screen.dart';
 import 'package:cargo_linker/presentation/screens/home/container_card.dart';
 import 'package:cargo_linker/presentation/widgets/button_circular_progress_indicator.dart';
 import 'package:cargo_linker/presentation/widgets/primary_button.dart';
@@ -68,7 +68,22 @@ class TraderSearchTab extends StatelessWidget {
           }
         },
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text(
+              "Search Containers",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 34,
+              ),
+            ),
+            const Text(
+              "Enter the pickup and drop location to search",
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            ),
+            const Spacing(
+              multiply: 6,
+            ),
             PrimaryTextField(
               controller: pickupLocationController,
               labelText: 'Pickup Location',
